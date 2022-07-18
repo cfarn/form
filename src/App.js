@@ -8,6 +8,8 @@ class App extends React.Component {
     super ()
 
     this.state = {
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
       rememberMe: false,
@@ -16,6 +18,24 @@ class App extends React.Component {
       isSubmitted: false
     }
   }
+
+  // méthode firstName
+  handlefirstNameChange = (e) => {
+    // state firstName
+    this.setState({ firstName: e.target.value }, () => {
+      console.log(this.state.firstName)
+    })
+  }
+
+  // méthode lastName
+  handlelastNameChange = (e) => {
+    // state lastName
+    this.setState({ lastName: e.target.value }, () => {
+      console.log(this.state.lastName)
+    })
+  }
+
+
 
   // méthode email
   handleEmailChange = (e) => {
@@ -80,9 +100,32 @@ class App extends React.Component {
           this.state.isSubmitted ? 
           <div className="bg-success text-white">
             <p className="text-center">Form submitted</p>
-            </div> : 
-            // début du formulaire
-            <form onSubmit={this.handleSubmit}>
+            <p className="text-center">{`${this.state.firstName} ${this.state.lastName}`}</p>
+          </div> : 
+          // début du formulaire
+          <form onSubmit={this.handleSubmit}>
+            {/* div firstName */}
+            <div className="mb-3">
+              <label htmlFor="firstName" className="form-label">FirstName</label>
+              <input 
+                type="text" 
+                className="form-control" 
+                id="input" 
+                placeholder="Enter firstName..." 
+                onChange={this.handlefirstNameChange}
+              />
+            </div>
+            {/* div lastName */}
+            <div className="mb-3">
+              <label htmlFor="lastName" className="form-label">lastName</label>
+              <input 
+                type="text" 
+                className="form-control" 
+                id="input" 
+                placeholder="Enter lastName..." 
+                onChange={this.handlelastNameChange}
+              />
+            </div>
             {/* div email */}
             <div className="mb-3">
               <label htmlFor="email" className="form-label">Email address</label>
