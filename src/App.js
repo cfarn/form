@@ -20,14 +20,18 @@ class App extends React.Component {
   // méthode email
   handleEmailChange = (e) => {
     // state email
-    this.setState({ email: e.target.value })
+    this.setState({ email: e.target.value }, () => {
+      console.log(this.state.email)
+    })
     // state emailIsValid
-    // if(regex.test(e.target.value) === true) {
-    //   this.setState({ emailIsValid: true })
-    // }else {
-    //   this.setState({ emailIsValid: false })
-    // }
-    console.log(this.state.email)
+    if(regex.test(e.target.value)) {
+      this.setState({ emailIsValid: true }, () => {
+      console.log(this.state.emailIsValid)
+      })
+    }else {
+      this.setState({ emailIsValid: false })
+    }
+    
   }
 
   // méthode password
@@ -42,9 +46,14 @@ class App extends React.Component {
   }
 
   // méthode checkbox
-  // handleRememberMeChange = (e) => {
-  //   this.setState({ rememberMe: })
-  // }
+  handleRememberMeChange = (e) => {
+    if(this.state.rememberMe) {
+      this.setState({ rememberMe: false})
+    }else {
+      this.setState({ rememberMe: true})
+    }
+    
+  }
 
   // méthode submit
   handleSubmit = (e) => {
@@ -55,6 +64,7 @@ class App extends React.Component {
   }
 
   render() {
+    
     return (
       <div className="container col-6">
         <h1 className="text-center">Login</h1>
@@ -86,7 +96,7 @@ class App extends React.Component {
           {/* div checkbox */}
           <div className="mb-3 form-check">
             <input type="checkbox" className="form-check-input" id="check" onChange={this.handleRememberMeChange}/>
-            <label class="form-check-label" htmlFor="check">Remember me</label>
+            <label className="form-check-label" htmlFor="check">Remember me</label>
           </div>
           {/* submit button */}
           <button type="submit" className="btn btn-primary">Submit</button>
