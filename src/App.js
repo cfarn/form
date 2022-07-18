@@ -36,13 +36,18 @@ class App extends React.Component {
 
   // méthode password
   handlePasswordChange = (e) => {
-    this.setState({ password: e.target.value })
+    this.setState({ password: e.target.value }, () => {
+      console.log(this.state.password)
+    })
     if(e.target.value.length > 5) {
-      this.setState({ passwordIsValid: true })
+      this.setState({ passwordIsValid: true }, () => {
+        console.log(this.state.passwordIsValid)
+      })
     }else {
-      this.setState({ passwordIsValid: false })
+      this.setState({ passwordIsValid: false }, () => {
+        console.log(this.state.passwordIsValid)
+      })
     }
-    console.log(this.state.password)
   }
 
   // méthode checkbox
@@ -60,6 +65,8 @@ class App extends React.Component {
     e.preventDefault()
     if(this.state.emailIsValid && this.state.passwordIsValid) {
       this.setState({ isSubmitted: true })
+    }else {
+      this.setState({ isSubmitted: false })
     }
   }
 
@@ -68,39 +75,45 @@ class App extends React.Component {
     return (
       <div className="container col-6">
         <h1 className="text-center">Login</h1>
-        {/* début du formulaire */}
-        <form onSubmit={this.handleSubmit}>
-          {/* div email */}
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">Email address</label>
-            <input 
-              type="email" 
-              className="form-control" 
-              id="input" 
-              aria-describedby="emailHelp"
-              placeholder="Enter email..." 
-              onChange={this.handleEmailChange}
-            />
-          </div>
-          {/* div password */}
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label">Password</label>
-            <input 
-              type="password" 
-              className="form-control" 
-              id="password"
-              placeholder="Enter password..."
-              onChange={this.handlePasswordChange}
-            />
-          </div>
-          {/* div checkbox */}
-          <div className="mb-3 form-check">
-            <input type="checkbox" className="form-check-input" id="check" onChange={this.handleRememberMeChange}/>
-            <label className="form-check-label" htmlFor="check">Remember me</label>
-          </div>
-          {/* submit button */}
-          <button type="submit" className="btn btn-primary">Submit</button>
-        </form> {/* /form */}
+        {
+          // condition ternaire affichage du message ou du form
+          this.state.isSubmitted ? 
+          <div>Form submitted</div> : 
+            // début du formulaire
+            <form onSubmit={this.handleSubmit}>
+            {/* div email */}
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label">Email address</label>
+              <input 
+                type="email" 
+                className="form-control" 
+                id="input" 
+                aria-describedby="emailHelp"
+                placeholder="Enter email..." 
+                onChange={this.handleEmailChange}
+              />
+            </div>
+            {/* div password */}
+            <div className="mb-3">
+              <label htmlFor="password" className="form-label">Password</label>
+              <input 
+                type="password" 
+                className="form-control" 
+                id="password"
+                placeholder="Enter password..."
+                onChange={this.handlePasswordChange}
+              />
+            </div>
+            {/* div checkbox */}
+            <div className="mb-3 form-check">
+              <input type="checkbox" className="form-check-input" id="check" onChange={this.handleRememberMeChange}/>
+              <label className="form-check-label" htmlFor="check">Remember me</label>
+            </div>
+            {/* submit button */}
+            <button type="submit" className="btn btn-primary">Submit</button>
+          </form> 
+        }
+        
         <hr/>
       </div> // /container
     )
