@@ -78,7 +78,9 @@ class App extends React.Component {
         {
           // condition ternaire affichage du message ou du form
           this.state.isSubmitted ? 
-          <div>Form submitted</div> : 
+          <div className="bg-success text-white">
+            <p className="text-center">Form submitted</p>
+            </div> : 
             // début du formulaire
             <form onSubmit={this.handleSubmit}>
             {/* div email */}
