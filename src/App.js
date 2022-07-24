@@ -72,11 +72,15 @@ class App extends React.Component {
 
   // méthode checkbox
   handleRememberMeChange = (e) => {
+    // solution 1 : à éviter
     if(this.state.rememberMe) {
       this.setState({ rememberMe: false})
     }else {
       this.setState({ rememberMe: true})
     }
+
+    // solution 2
+    // this.setState({rememberMe: e.target.checked})
     
   }
 
